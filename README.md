@@ -12,47 +12,43 @@ Autocorrelation-and-Heteroscedasticity-Detection-in-GDP-Investment-Model
 This project analyzes the relationship between India’s economic growth (GDP) and investment levels (GCF) using real data from the Reserve Bank of India (RBI) for the years 1951–2007.
 
 
-###  Methodology
+##  Step 1: Data Collection and Model Specification
 
-1. **Model Building:**
-   We built a simple linear regression model:
+This project begins by exploring the relationship between **India’s GDP (Gross Domestic Product)** and **Gross Capital Formation (GCF)** — a key indicator of investment in the economy.
+In simple terms, the goal was to understand whether higher investment levels are associated with higher national output over time.
 
-   GDP = β₀ + β₁* GCF + ε
-   
-   Here, GDP represents total output, GCF represents investment, and (ε) is the error term capturing other unobserved factors.
+###  Data Overview
 
-2. **OLS Estimation:**
-   Using **Ordinary Least Squares (OLS)**, we estimated the parameters of the model.
-   The regression showed a strong positive relationship between GDP and GCF with an **R² ≈ 0.96**, meaning that investment explained about 96% of GDP variation during the period.
+* **Source:** Reserve Bank of India (RBI) – official annual time-series data.
+* **Period:** 1951 – 2007
+* **Variables Used:**
 
-3. **Model Diagnostics:**
-   To check if our model assumptions were valid, we performed several statistical tests:
+  * **GDP (Gross Domestic Product at Market Prices)** – measures total economic output.
+  * **GCF (Gross Capital Formation)** – measures the total value of investments made in the economy.
+* **Unit of Measurement:** Indian Rupees (INR crore)
 
-   * **Autocorrelation Tests:** Durbin–Watson, Runs Test, and Breusch–Godfrey tests.
-   * **Heteroscedasticity Test:** White’s Test.
-   * **Normality Test:** Jarque–Bera test.
+Before running any model, the dataset was checked for:
 
-4. **Corrections Applied:**
-   When autocorrelation was detected, we applied corrective methods — **Cochrane–Orcutt**, **Prais–Winsten**, and **First-Difference transformations** — to stabilize the residuals.
-   After correction, the **Durbin–Watson statistic approached 2**, indicating the absence of serial correlation.
+* Missing or inconsistent values
+* Outliers or extreme observations
+* Overall trend patterns through **line charts** and **scatter plots**
 
-###  Key Findings
+### ⚙️ Model Framework
 
-* Investment (GCF) has a **significant positive impact** on GDP growth.
-* After statistical corrections, the model satisfied key regression assumptions, making it more **robust and reliable**.
-* The study demonstrates how **econometric techniques** ensure that regression results are not misleading due to data issues like autocorrelation or heteroscedasticity.
+To represent the relationship, a simple linear regression model was used:
 
-###  Tools & Techniques
+GDP_t = β_0 + β_1*GCF_t + ε_t
 
-* **Software:** Stata / R
-* **Methods:** OLS Regression, Durbin–Watson, Breusch–Godfrey, White’s Test, Cochrane–Orcutt, Prais–Winsten
-* **Data Source:** Reserve Bank of India (RBI) Database
 
-###  Learning Outcome
+Where:
 
-This project strengthened my understanding of **time-series econometrics**, particularly how to detect and fix violations in regression assumptions to produce valid and reliable results — a crucial skill for **data analysis, finance, and machine learning** applications.
+* ( β_0 ) = intercept, showing baseline GDP when investment is zero
+* ( β_1 ) = slope coefficient, representing how much GDP changes for every unit increase in investment
+* ( ε_t ) = random error term capturing factors not included in the model
+
+
+### 📈 Exploratory Insights
+
+Initial plots showed both GDP and GCF trending upward over the years, indicating long-term economic growth. However, such trends can also introduce potential issues like **autocorrelation** or **non-stationarity** in time-series data — which were later tested and corrected in subsequent steps of this project.
 
 ---
-
-Would you like me to make it look even more “GitHub-professional” — i.e., with emojis, section dividers, and markdown tables (like a portfolio-style README)?
-I can give you that polished version next.
