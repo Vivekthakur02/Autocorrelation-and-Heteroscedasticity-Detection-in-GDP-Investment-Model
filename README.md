@@ -33,22 +33,53 @@ Before running any model, the dataset was checked for:
 * Outliers or extreme observations
 * Overall trend patterns through **line charts** and **scatter plots**
 
+##  Step 2 — OLS Estimation & Interpretation
+
 ### ⚙️ Model Framework
 
 To represent the relationship, a simple linear regression model was used:
 
-GDP_t = β_0 + β_1*GCF_t + ε_t
+GDP_t = β₀ + β₁*GCF_t + ε_t
 
-
-Where:
-
-* ( β_0 ) = intercept, showing baseline GDP when investment is zero
-* ( β_1 ) = slope coefficient, representing how much GDP changes for every unit increase in investment
-* ( ε_t ) = random error term capturing factors not included in the model
-
-
-### 📈 Exploratory Insights
-
-Initial plots showed both GDP and GCF trending upward over the years, indicating long-term economic growth. However, such trends can also introduce potential issues like **autocorrelation** or **non-stationarity** in time-series data — which were later tested and corrected in subsequent steps of this project.
+* **β₀** = Intercept – base level of GDP when GCF = 0
+* **β₁** = Slope – average change in GDP for a one-unit change in GCF
+* **ε** = Error term – captures other macroeconomic factors not included in the model
 
 ---
+
+### 🧮 Estimated Regression Equation
+
+Using RBI time-series data (1951 – 2008), the estimated equation was:
+
+GDP_GCF = 293639.3+ 2.942763 GCF
+
+**Key Results**
+
+| Statistic              | Value  | Interpretation                                          |
+| ---------------------- | ------ | ------------------------------------------------------- |
+| **R²**                 | 0.9585 | GCF explains ~95.8 % of GDP variation                   |
+| **β₁ (p-value)**       | < 0.01 | Investment’s impact on GDP is statistically significant |
+| **Durbin–Watson (DW)** | 0.211  | Indicates strong positive autocorrelation in residuals  |
+
+---
+R² measures how much of the variation in the dependent variable is explained by the independent variable.
+
+###  Interpretation
+
+* **Positive relationship:** Every ₹ 1 crore increase in investment corresponds, on average, to a ₹ 2.94 crore increase in GDP.
+* **High R²:** The model shows a strong fit, but time-series trends can inflate R²; diagnostic testing is required to confirm reliability.
+* **Autocorrelation detected:** A DW ≈ 0.21 suggests residuals are positively correlated—violating OLS independence assumptions. This issue was addressed later using **Cochrane–Orcutt**, **Prais–Winsten**, and **First-Difference** corrections.
+
+---
+
+###  Stata Commands Used
+
+```stata
+reg gdp gcf
+lfit gdp gcf
+predict resid, residuals
+dwstat
+```
+
+
+
